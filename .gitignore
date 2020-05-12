@@ -4,3 +4,6 @@ data
 .DS_Store
 Icon?
 figures
+
+detectionAspen/figs
+detectionAspen/aisp_scratch.m
