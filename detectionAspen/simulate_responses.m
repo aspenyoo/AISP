@@ -26,6 +26,8 @@ persistent highest_J
 
 if nargin < 4; logflag = []; end
 
+x(logflag) = exp(x(logflag));
+
 % start off with lapse
 lapserate = x(end);
 nTrials = size(dMat,1);
@@ -46,8 +48,6 @@ if sum(~islapse) % if there are any trials that did not lapse
     Rels = dMat(:,(nItems+1):end);      % reliabilities for each item (1: low, 2: high)
     
     % ===== GET PARAMETER VALUES ======
-    x(logflag) = exp(x(logflag));
-    
     Jbar_high = x(1);
     Jbar_low = x(2);
     tau = x(3);

@@ -6,7 +6,7 @@ load('fittingsettings.mat')
 % ========= DATA/MODEL INFO ========
 
 % fitting settings (determined by index)
-[isubj,imodel,irep] = ind2sub([nSubjs nModels nReps],idx)
+[isubj,irep,imodel] = ind2sub([nSubjs nReps nModels],idx)
 subjid = subjidVec{isubj};
 model = modelVec{imodel};
 
@@ -33,10 +33,6 @@ dMat = [dMat blah];
 % UB = UB.(model);
 % PLB = PLB.(model);
 % PUB = PUB.(model);
-LB(logflag) = log(LB(logflag));
-UB(logflag) = log(UB(logflag));
-PLB(logflag) = log(PLB(logflag));
-PUB(logflag) = log(PUB(logflag));
 
 % generate x0s for all reps
 rng(0); 

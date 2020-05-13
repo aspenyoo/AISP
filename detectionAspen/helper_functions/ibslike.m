@@ -304,7 +304,8 @@ for iRep = 1:options.Nreps
         end
         Ns = Ns + numel(T); % Count samples
         hits_new = all(respMat(T(:),:) == simdata,2);  
-   
+        hits(T) = hits(T) + hits_new;
+        
         K(T(hits_new),iRep) = offset; 
         nlogLs = (psi(K(T(hits_new),iRep)) - psi(1));
         
