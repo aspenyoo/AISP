@@ -11,9 +11,8 @@ subjid = subjidVec{isubj};
 model = modelVec{imodel};
 
 % load data
-
-load(sprintf('/Volumes/GoogleDrive/My Drive/Research/VSTM/Aspen Luigi - Reliability in VWM/Exp 5 - Keshvari replication and extension/data/fitting_data/%s_Ellipse_simple.mat',...
-    subjid))
+load(sprintf('../../changedetection/multi_item/data/fitting_data/%s_Ellipse_simple.mat',subjid))
+%load(sprintf('/Volumes/GoogleDrive/My Drive/Research/VSTM/Aspen Luigi - Reliability in VWM/Exp 5 - Keshvari replication and extension/data/fitting_data/%s_Ellipse_simple.mat', subjid))
 % load(sprintf('../data/fitting_data/%s_Ellipse_simple.mat',subjid))
 
 % data in ibs format
