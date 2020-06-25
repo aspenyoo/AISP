@@ -46,6 +46,7 @@ if sum(~islapse) % if there are any trials that did not lapse
     nItems = 4;
     Delta = dMat(:,1:nItems);           % amount change for each of four items
     Rels = dMat(:,(nItems+1):end);      % reliabilities for each item (1: low, 2: high)
+    nRelsVec = sum(Rels==2,2);
     
     % ===== GET PARAMETER VALUES ======
     Jbar_high = x(1);
@@ -114,6 +115,16 @@ if sum(~islapse) % if there are any trials that did not lapse
             d_Mat = squeeze(max(kappa_x_i + kappa_y_i - Kc,[],2));
             p_C_hat = d_Mat > k; % respond 1 if bias term
         case 'freq2' % optimal point estimate model
+            dec_rule = calculate_optimaldecisioncriteria(x(1:3));
+            d_Mat = squeeze(max(kappa_x_i + kappa_y_i - Kc,[],2));
+            p_C_hat = nan(size(d_Mat));
+            for irel = 1:5;
+                nrel = irel-1;
+                idx = nRelsVec == nrel;
+                p_C_hat(idx) = dMat(idx)>dec_rule(irel);
+            end
+            
+
     end
     resp(~islapse) = p_C_hat;
 end
