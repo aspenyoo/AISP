@@ -5,8 +5,8 @@ function resp = simulate_responses(x,model,dMat,logflag)
 % ============ INPUT VARIABLES ============
 % X: parameter values. vector of length six
 %       'bayes': [Jbar_high, Jbar_low, tau, sigma_d, p_change, lambda]
-%       'pt': [Jbar_high, Jbar_low, tau, sigma_d, bias, lambda]
-%       'optpt': [Jbar_high, Jbar_low, tau, sigma_d, bias, lambda]
+%       'freq': [Jbar_high, Jbar_low, tau, sigma_d, bias, lambda]
+%       'freq2': [Jbar_high, Jbar_low, tau, sigma_d, bias, lambda]
 % MODEL: model name. string
 %       'bayes' (bayes optimal),'pt' (pt estimate), 'optpt'
 %       (pt estimate w/ optimal condition-specific decision criteria)
@@ -121,7 +121,7 @@ if sum(~islapse) % if there are any trials that did not lapse
             for irel = 1:5;
                 nrel = irel-1;
                 idx = nRelsVec == nrel;
-                p_C_hat(idx) = dMat(idx)>dec_rule(irel);
+                p_C_hat(idx) = dMat(idx)>(dec_rule(irel)+k);
             end
             
 
