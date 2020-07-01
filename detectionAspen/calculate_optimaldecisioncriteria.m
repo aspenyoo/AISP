@@ -28,7 +28,7 @@ if isempty(saved_pars) || any(saved_pars ~=pars)
     
 %     figure;
     optimal_criterion = zeros(1,nRelConds);
-    nSim = 1e5; % half of this will make up d0 and d1
+    nSim = 1e6; % half of this will make up d0 and d1
     for icond = 1:nRelConds
         nLow = nLowVec(icond);
         
@@ -62,8 +62,10 @@ if isempty(saved_pars) || any(saved_pars ~=pars)
         
         % get difference between noise
         delta_noise = noise_x-noise_y;
-        Delta = zeros(nSim/2,4);
-        Delta = [Delta; 4*pi.*rand(nSim/2,4)-2*pi];
+        Delta = zeros(nSim,4);
+        deltaVec = 4*pi.*rand(1,nSim/2)-2*pi;
+        idx = sub2ind([nSim/2,4],1:(nSim/2),randi(4,1,nSim/2));
+        Delta(idx) = deltaVec;
         
         % the term inside denominator bessel function for d_i
         Kc = bsxfun(@times,2.*kappa_x_i.*kappa_y_i,cos(bsxfun(@plus,Delta,delta_noise))); % note: it is okay to simply add the noise bc it goes through a cos!!
@@ -71,8 +73,8 @@ if isempty(saved_pars) || any(saved_pars ~=pars)
         
         % d1 d0
         d_Mat = squeeze(max(kappa_x_i + kappa_y_i - Kc,[],2));
-        d0 = d_Mat(1:nSim/2,:);
-        d1 = d_Mat(nSim/2+1:end,:);
+        d1 = d_Mat(1:nSim/2,:);
+        d0 = d_Mat(nSim/2+1:end,:);
 %         histogram(d1);hold on; histogram(d0); pause; hold off
         
         % Bisection method homebrew:
