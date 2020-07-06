@@ -2,7 +2,7 @@
 #
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
-#SBATCH --time=06:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mem=7GB
 #SBATCH --job-name=fit_parameters
 #SBATCH --mail-type=END
@@ -18,9 +18,9 @@ addpath(genpath('/home/ay963/bigAISP/detectionAspen'))
 
 % fixed model fitting settings
 nReps = 20;
-idx = $SLURM_ARRAY_TASK_ID;
-%load('idxstocomplete.mat')
-%idx=idxlist(idxx);
+idxx = $SLURM_ARRAY_TASK_ID;
+load('idxstocomplete.mat')
+idx=idxlist(idxx);
 
 
 fit_cluster_ibs(idx,nReps)
