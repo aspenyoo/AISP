@@ -102,13 +102,12 @@ if sum(~islapse) % if there are any trials that did not lapse
     Kc = bsxfun(@times,2.*kappa_x_i.*kappa_y_i,cos(bsxfun(@plus,Delta,delta_noise))); % note: it is okay to simply add the noise bc it goes through a cos!!
     Kc = sqrt(bsxfun(@plus,kappa_x_i.^2+kappa_y_i.^2,Kc)); % dims: mat_dims
     
-    % d_i
     switch model
         case 'bayes'
             d_i_Mat = bsxfun(@minus,log(besseli(0,kappa_x_i,1).*besseli(0,kappa_y_i,1))+...
                 (kappa_x_i+kappa_y_i),log(besseli(0,Kc,1))+Kc); % actually log d_i_Mat
             p_C_hat = log(sum(exp(d_i_Mat),2))-log(nItems)+log(k)-log(1-k);  % these values are actually log(d), not p_C_hat
-%             p_C_hat = log(sum(exp(d_i_Mat),2))-log(nItems);  % these values are actually log(d), not p_C_hat
+            %             p_C_hat = log(sum(exp(d_i_Mat),2))-log(nItems);  % these values are actually log(d), not p_C_hat
             p_C_hat = p_C_hat + randn(size(p_C_hat)).*sigma_d;    % global dec noise
             p_C_hat = p_C_hat > 0; %k     % respond 1 if log(d) > log(1)
         case 'freq' % point estimate model
@@ -121,10 +120,10 @@ if sum(~islapse) % if there are any trials that did not lapse
             for irel = 1:5;
                 nrel = irel-1;
                 idx = nRelsVec == nrel;
-                p_C_hat(idx) = dMat(idx)>(dec_rule(irel)+k);
+                p_C_hat(idx) = d_Mat(idx) > (dec_rule(irel)+k);
             end
             
-
+            
     end
     resp(~islapse) = p_C_hat;
 end

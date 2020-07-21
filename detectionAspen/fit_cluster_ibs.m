@@ -1,4 +1,4 @@
-function fit_cluster_ibs(idx,nReps)
+function [xbest, LL] = fit_cluster_ibs(idx,nReps)
 
 % load subject, model, fitting options and bounds
 load('fittingsettings.mat')
@@ -47,5 +47,7 @@ fun = @(x,dMat) simulate_responses(x,model,dMat,logflag);
 
 xbest(logflag) = exp(xbest(logflag)); % getting parameters back into natural units
 
+if ~nargout
 save(sprintf('fits/model%s_subj%s_rep%d.mat',model,subjid,irep),...
     'options','xbest','LL')
+end
