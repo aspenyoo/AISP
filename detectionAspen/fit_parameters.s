@@ -18,9 +18,9 @@ addpath(genpath('/home/ay963/bigAISP/detectionAspen'))
 
 % fixed model fitting settings
 nReps = 20;
-idxx = $SLURM_ARRAY_TASK_ID;
-load('idxstocomplete.mat')
-idx=idxlist(idxx);
+idx = $SLURM_ARRAY_TASK_ID;
+%load('idxstocomplete.mat')
+%idx=idxlist(idxx);
 
 
 fit_cluster_ibs(idx,nReps)
