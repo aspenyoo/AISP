@@ -36,11 +36,12 @@ dMat = [dMat blah];
 % generate x0s for all reps
 rng(0); 
 nvars = numel(PLB);
-x0_list = lhs(nReps,nvars,PLB,PUB,[],1e3);
+% x0_list = lhs(nReps,nvars,PLB,PUB,[],1e3);
 
 % ============ FIT THE DATA =========
 rng(irep);
-x0 = x0_list(irep,:);
+x0 = (PUB-PLB).*rand(1,nvars)+PLB;
+% x0 = x0_list(irep,:);
 
 fun = @(x,dMat) simulate_responses(x,model,dMat,logflag);
 [xbest,LL] = bads(@(x) ibslike(fun,x,data.resp,dMat,options_ibs),x0,LB,UB,PLB,PUB,[],options)
