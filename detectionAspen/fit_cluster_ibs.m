@@ -1,4 +1,4 @@
-function [xbest, LL] = fit_cluster_ibs(idx,nReps)
+function [xbest, LL] = fit_cluster_ibs(imodel,isubj,irep)
 
 % load subject, model, fitting options and bounds
 load('fittingsettings.mat')
@@ -6,7 +6,6 @@ load('fittingsettings.mat')
 % ========= DATA/MODEL INFO ========
 
 % fitting settings (determined by index)
-[isubj,irep,imodel] = ind2sub([nSubjs nReps nModels],idx)
 subjid = subjidVec{isubj};
 model = modelVec{imodel};
 
