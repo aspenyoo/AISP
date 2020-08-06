@@ -2,8 +2,8 @@
 #
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=1
-#SBATCH --time=12:00:00
-#SBATCH --mem=7GB
+#SBATCH --time=6:00:00
+#SBATCH --mem=4GB
 #SBATCH --job-name=clusterfancy
 #SBATCH --mail-type=END
 #SBATCH --mail-user=aspen.yoo@nyu.edu
