@@ -33,7 +33,6 @@ dMat = [dMat blah];
 % PUB = PUB.(model);
 
 % generate x0s for all reps
-rng(0); 
 nvars = numel(PLB);
 % x0_list = lhs(nReps,nvars,PLB,PUB,[],1e3);
 
@@ -42,6 +41,7 @@ rng(irep);
 x0 = (PUB-PLB).*rand(1,nvars)+PLB;
 % x0 = x0_list(irep,:);
 
+var_limit = 40;
 fun = @(x,dMat) simulate_responses(x,model,dMat,logflag);
 fun_handle = @(x) ibslike_var(fun,x,data.resp,dMat,options_ibs,var_limit);
 [xbest,LL] = bads(fun_handle,x0,LB,UB,PLB,PUB,[],options)
@@ -51,5 +51,5 @@ xbest(logflag) = exp(xbest(logflag)); % getting parameters back into natural uni
 
 if ~nargout
 save(sprintf('fits/model%s_subj%s_rep%d.mat',model,subjid,irep),...
-    'options','xbest','LL')
+    'options','xbest','LL','var_limit')
 end
