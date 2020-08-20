@@ -38,10 +38,10 @@ nvars = numel(PLB);
 
 % ============ FIT THE DATA =========
 rng(irep);
-x0 = (PUB-PLB).*rand(1,nvars)+PLB;
+x0 = (PUB-PLB).*rand(1,nvars)+PLB
 % x0 = x0_list(irep,:);
 
-var_limit = 40;
+% var_limit = 40;
 fun = @(x,dMat) simulate_responses(x,model,dMat,logflag);
 fun_handle = @(x) ibslike_var(fun,x,data.resp,dMat,options_ibs,var_limit);
 [xbest,LL] = bads(fun_handle,x0,LB,UB,PLB,PUB,[],options)

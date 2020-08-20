@@ -16,10 +16,10 @@ cat<<EOF | matlab -nodisplay
 addpath(genpath('/home/ay963/matlab-scripts'))
 addpath(genpath('/home/ay963/bigAISP/detectionAspen'))
 
-tic;
+ttime = tic;
 idx = $SLURM_ARRAY_TASK_ID;
 cluster_fcn_fancy(idx)
 
-fprintf('job complete in %f minutes',toc/60)
+fprintf('job complete in %f minutes \n',toc(ttime)/60)
 
 EOF
