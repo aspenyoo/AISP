@@ -28,9 +28,9 @@ runs = csvread('runs.csv');
 while idx > size(runs, 1)
     f = fopen('block_runs', 'w');
     for isubj = 1:nSubjs
-        subjid = subjidVec{isubj};
+        subjid = subjidVec{isubj}
         
-        for imodel = 2:nModels
+        for imodel = 1:nModels
             model = modelVec{imodel};
             
             % get all files for this model and subjid
@@ -46,6 +46,8 @@ while idx > size(runs, 1)
             if nGood < nTargets
                 irep = max(runs(runs(:,1)==isubj & runs(:,3)==imodel,2)) + 1;
                 runs = [runs; [isubj, irep, imodel]];
+            else
+                sprintf('satisfied!')
             end
         end
     end
